@@ -6,7 +6,8 @@ import sys
 
 def connect_db():
     try:
-        conn = psycopg2.connect(database='finalproject1', user='postgres', password='kiflin24', host='localhost', port=5432)
+        conn = psycopg2.connect(database='finalproject1', user='postgres',
+                                 password='kiflin24', host='localhost', port=5432)
         return conn
     except Exception as e:
         print(f"Error connecting to the database: {e}")
@@ -61,7 +62,8 @@ def patient_register():
         no_telepon = input("\033[1mMasukkan no telepon: \033[0m")
         id_pasien = input("\033[1mMasukkan ID pasien: \033[0m")
 
-        query = "INSERT INTO pasien (id_pasien, nama_pasien, tanggal_lahir, alamat, no_telepon) VALUES (%s, %s, %s, %s, %s)"
+        query = "INSERT INTO pasien (id_pasien, nama_pasien, tanggal_lahir, alamat,\
+        no_telepon)VALUES (%s, %s, %s, %s, %s)"
         cur.execute(query, (id_pasien, nama_pasien, tanggal_lahir, alamat, no_telepon))
         conn.commit()
         print("\033[92mRegistrasi pasien berhasil.\033[0m")
@@ -422,7 +424,8 @@ def tambah_data_dokter():
             nama_dokter = input("\033[1mMasukkan nama dokter:\033[0m ")
             alamat = input("\033[1mMasukkan alamat:\033[0m ")
             no_telepon = input("\033[1mMasukkan no telepon:\033[0m ")
-            query = "INSERT INTO dokter(id_dokter, nama_dokter, alamat, no_telepon) VALUES (%s, %s, %s, %s)"
+            query = "INSERT INTO dokter(id_dokter, nama_dokter, alamat, no_telepon)\
+            VALUES (%s, %s, %s, %s)"
             cur.execute(query, (id_dokter, nama_dokter, alamat, no_telepon))
         
         conn.commit()
@@ -488,15 +491,19 @@ def update_data_dokter():
 
         if data2:
             table_single = PrettyTable()
-            table_single.field_names = ["ID Dokter", "Nama Dokter", "Alamat", "No Telepon"]
+            table_single.field_names = ["ID Dokter", "Nama Dokter", "Alamat",
+                                         "No Telepon"]
             table_single.add_row(data2)
             print(table_single)
 
-            nama_dokter = input(f"\033[1mMasukkan nama dokter (lama:\033[0m {data2[1]}): ")
+            nama_dokter = input(f"\033[1mMasukkan nama dokter \
+                                (lama:\033[0m {data2[1]}): ")
             alamat = input(f"\033[1mMasukkan alamat (lama:\033[0m {data2[2]}): ")
-            no_telepon = input(f"\033[1mMasukkan no telepon (lama:\033[0m {data2[3]}): ")
+            no_telepon = input(f"\033[1mMasukkan no telepon \
+                               (lama:\033[0m {data2[3]}): ")
 
-            update_query = "UPDATE dokter SET nama_dokter = %s, alamat = %s, no_telepon = %s WHERE id_dokter = %s"
+            update_query = "UPDATE dokter SET nama_dokter = %s, alamat = %s,\
+            no_telepon = %s WHERE id_dokter = %s"
             cur.execute(update_query, (nama_dokter, alamat, no_telepon, id_dokter))
             conn.commit()
             os.system('clear')
@@ -572,7 +579,8 @@ def tambah_data_pasien():
         data = cur.fetchall()
         
         table = PrettyTable()
-        table.field_names = ["ID Pasien", "Nama Pasien", "Tanggal Lahir", "Alamat", "No Telepon"]
+        table.field_names = ["ID Pasien", "Nama Pasien", "Tanggal Lahir", "Alamat",
+                              "No Telepon"]
         for row in data:
             table.add_row(row)
         
@@ -582,11 +590,14 @@ def tambah_data_pasien():
         for i in range(total_input):
             id_pasien = input(f"\033[1mMasukkan no id pasien:\033[0m ")
             nama_pasien = input(f"\033[1mMasukkan nama pasien:\033[0m ")
-            tanggal_lahir = input(f"\033[1mMasukkan tanggal lahir (YYYY-MM-DD):\033[0m ")
+            tanggal_lahir = input(f"\033[1mMasukkan tanggal lahir \
+                                  (YYYY-MM-DD):\033[0m ")
             alamat = input(f"M\033[1masukkan alamat:\033[0m ")
             no_telepon = input(f"\033[1mMasukkan no telepon:\033[0m ")
-            query = "INSERT INTO pasien(id_pasien, nama_pasien, tanggal_lahir, alamat, no_telepon) VALUES (%s, %s, %s, %s, %s)"
-            cur.execute(query, (id_pasien, nama_pasien, tanggal_lahir, alamat, no_telepon))
+            query = "INSERT INTO pasien(id_pasien, nama_pasien, tanggal_lahir,\
+            alamat, no_telepon) VALUES (%s, %s, %s, %s, %s)"
+            cur.execute(query, (id_pasien, nama_pasien, tanggal_lahir, alamat,
+                                 no_telepon))
         
         conn.commit()
         os.system('clear')
@@ -612,7 +623,8 @@ def read_data_pasien():
         data = cur.fetchall()
         
         table = PrettyTable()
-        table.field_names = ["ID Pasien", "Nama Pasien", "Tanggal Lahir", "Alamat", "No Telepon"]
+        table.field_names = ["ID Pasien", "Nama Pasien", "Tanggal Lahir", "Alamat",
+                              "No Telepon"]
         for row in data:
             formatted_row = list(row)
             formatted_row[2] = formatted_row[2].strftime('%Y-%m-%d')
@@ -639,7 +651,8 @@ def update_data_pasien():
         cur.execute(query_select)
         data1 = cur.fetchall()
         table = PrettyTable()
-        table.field_names = ["ID Pasein", "Nama Pasien", "Alamat", "Tanggal Lahir", "No Telepon"]
+        table.field_names = ["ID Pasein", "Nama Pasien", "Alamat", "Tanggal Lahir",
+                              "No Telepon"]
         for row in data1:
             table.add_row(row)
         
@@ -652,7 +665,8 @@ def update_data_pasien():
 
         if data2:
             table_single = PrettyTable()
-            table_single.field_names = ["ID Pasein", "Nama Pasien", "Alamat", "Tanggal Lahir", "No Telepon"]
+            table_single.field_names = ["ID Pasein", "Nama Pasien", "Alamat",
+                                         "Tanggal Lahir","No Telepon"]
             table_single.add_row(data2)
             print(table_single)
             
@@ -662,13 +676,19 @@ def update_data_pasien():
             print(f'alamat: {data2[3]}')
             print(f'no telepon: {data2[4]}')
 
-            nama_pasien = input(f"\033[1mMasukkan nama pasien (lama:\033[0m {data2[1]}): ")
-            tanggal_lahir = input(f"\033[1mMasukkan tanggal lahir (lama:\033[0m {data2[2]}): ")
-            alamat = input(f"\033[1mMasukkan alamat (lama:\033[0m {data2[3]}): ")
-            no_telepon = input(f"\033[1mMasukkan no telepon (lama:\033[0m {data2[4]}): ")
+            nama_pasien = input(f"\033[1mMasukkan nama pasien\
+                                (lama:\033[0m {data2[1]}): ")
+            tanggal_lahir = input(f"\033[1mMasukkan tanggal lahir\
+                                  (lama:\033[0m {data2[2]}): ")
+            alamat = input(f"\033[1mMasukkan alamat\
+                           (lama:\033[0m {data2[3]}): ")
+            no_telepon = input(f"\033[1mMasukkan no telepon\
+                               (lama:\033[0m {data2[4]}): ")
 
-            update_query = "UPDATE pasien SET nama_pasien = %s, tanggal_lahir = %s, alamat = %s, no_telepon = %s WHERE id_pasien = %s"
-            cur.execute(update_query, (nama_pasien, tanggal_lahir, alamat, no_telepon, id_pasien))
+            update_query = "UPDATE pasien SET nama_pasien = %s, tanggal_lahir = %s,\
+            alamat = %s,no_telepon = %s WHERE id_pasien = %s"
+            cur.execute(update_query, (nama_pasien, tanggal_lahir, alamat,
+                                        no_telepon, id_pasien))
             conn.commit()
             os.system('clear')
             print("\033[1mData pasien berhasil diupdate.\033[0m")
@@ -698,7 +718,8 @@ def hapus_data_pasien():
         data = cur.fetchall()
         
         table = PrettyTable()
-        table.field_names = ["ID Pasien", "Nama Pasien", "Tanggal Lahir", "Alamat", "No Telepon"]
+        table.field_names = ["ID Pasien", "Nama Pasien", "Tanggal Lahir", "Alamat", 
+                             "No Telepon"]
         for row in data:
             table.add_row(row)
             
@@ -756,7 +777,8 @@ def tambah_data_obat():
             harga = float(input("\033[1mMasukkan harga:\033[1m "))
             jenis_obat_id_jenisobat = int(input("\033[1mMasukkan ID jenis obat:\033[1m "))
 
-            query = "INSERT INTO obat (id_obat, nama_obat, harga, jenis_obat_id_jenisobat) VALUES (%s, %s, %s, %s)"
+            query = "INSERT INTO obat (id_obat, nama_obat, harga, \
+            jenis_obat_id_jenisobat)VALUES (%s, %s, %s, %s)"
             cur.execute(query, (id_obat, nama_obat, harga, jenis_obat_id_jenisobat))
         
         conn.commit()
@@ -778,7 +800,8 @@ def read_data_obat():
     cur = conn.cursor()
     
     try:
-        lihat_data = "SELECT o.id_obat, o.nama_obat, o.harga, j.id_jenisobat FROM obat o JOIN jenis_obat j ON o.jenis_obat_id_jenisobat = j.id_jenisobat"
+        lihat_data = "SELECT o.id_obat, o.nama_obat, o.harga, j.id_jenisobat FROM\
+        obat o JOIN jenis_obat j ON o.jenis_obat_id_jenisobat = j.id_jenisobat"
         cur.execute(lihat_data)
         data = cur.fetchall()
 
@@ -804,7 +827,8 @@ def update_data_obat():
     cur = conn.cursor()
     
     try:
-        lihat_data = "SELECT o.id_obat, o.nama_obat, o.harga, j.id_jenisobat FROM obat o JOIN jenis_obat j ON o.jenis_obat_id_jenisobat = j.id_jenisobat"
+        lihat_data = "SELECT o.id_obat, o.nama_obat, o.harga, j.id_jenisobat FROM\
+        obat o JOIN jenis_obat j ON o.jenis_obat_id_jenisobat = j.id_jenisobat"
         cur.execute(lihat_data)
         data = cur.fetchall()
 
@@ -828,9 +852,11 @@ def update_data_obat():
 
             nama_obat = input(f"\033[1mMasukkan nama obat (lama:\033[1m {data2[1]}): ")
             harga = float(input(f"\033[1mMasukkan harga (lama:\033[1m {data2[2]}): "))
-            jenis_obat_id_jenisobat = int(input(f"\033[1mMasukkan ID jenis obat (lama:\033[1m {data2[3]}): "))
+            jenis_obat_id_jenisobat = int(input(f"\033[1mMasukkan ID jenis obat\
+                                                 (lama:\033[1m {data2[3]}): "))
 
-            update_query = "UPDATE obat SET nama_obat = %s, harga = %s, jenis_obat_id_jenisobat = %s WHERE id_obat = %s"
+            update_query = "UPDATE obat SET nama_obat = %s, harga = %s,\
+            jenis_obat_id_jenisobat = %s WHERE id_obat = %s"
             cur.execute(update_query, (nama_obat, harga, jenis_obat_id_jenisobat, id_obat))
             conn.commit()
             os.system('clear')
@@ -856,7 +882,8 @@ def hapus_data_obat():
     cur = conn.cursor()
 
     try:
-        lihat_data = "SELECT o.id_obat, o.nama_obat, o.harga, j.id_jenisobat FROM obat o JOIN jenis_obat j ON o.jenis_obat_id_jenisobat = j.id_jenisobat"
+        lihat_data = "SELECT o.id_obat, o.nama_obat, o.harga, j.id_jenisobat FROM\
+        obat o JOIN jenis_obat j ON o.jenis_obat_id_jenisobat = j.id_jenisobat"
         cur.execute(lihat_data)
         data = cur.fetchall()
 
